@@ -36,6 +36,7 @@ public class Person {
     private String surname;
 
     @NotNull
+    @Size(min = 11, max = 13)
     @Pattern(regexp = "([0-9]+[-]+[0-9]+)")
     @Column(name = "PersonCode")
     private String personCode;

@@ -21,7 +21,6 @@ public abstract class AbstractCustomer {
 
 
     @Id
-    @Setter(value = AccessLevel.NONE)
     @Column(name = "Idc")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int cID;
@@ -31,6 +30,7 @@ public abstract class AbstractCustomer {
     private Address address;
 
     @NotNull
+    @Size(min = 8, max = 8)
     @Column(name = "PhoneNo")
     private String phoneNo;
 

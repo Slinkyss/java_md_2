@@ -1,14 +1,14 @@
 package md.java_md2_d_kalnavs.Models;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.http.converter.json.GsonBuilderUtils;
+
 
 @Getter
 @Setter
@@ -18,15 +18,20 @@ import lombok.ToString;
 @Entity
 public class CustomerAsPerson extends AbstractCustomerAsPerson {
 
+    protected Person person;
 
-    private Person person;
 
     public void setCustomerCode() {
+
+
         this.customerCode = String.valueOf(super.getCID()) + "_" + "person" + "_" + person.getPersonCode();
+
     }
 
     public CustomerAsPerson(Person person, Address address, String phone) {
-        super(address, phone, person);
+
+        super(address,phone,person);
         setCustomerCode();
+
     }
 }

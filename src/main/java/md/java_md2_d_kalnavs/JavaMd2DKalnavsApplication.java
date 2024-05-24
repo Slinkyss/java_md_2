@@ -21,7 +21,7 @@ public class JavaMd2DKalnavsApplication {
             @Override
             public void run(String... args) throws Exception {
                 Person p1 = new Person("Janis", "Berzins", "130202-20821");
-                Person p2 = new Person("Juris", "Berzins", "210222-20321");
+                Person p2 = new Person("Juris", "Berzins", "123456-78911");
                 personRepo.save(p1);
                 personRepo.save(p2);
 
@@ -30,7 +30,7 @@ public class JavaMd2DKalnavsApplication {
                 addressRepo.save(a1);
                 addressRepo.save(a2);
 
-                CustomerAsCompany c1 = new CustomerAsCompany(a1, "+24423747", "Kalmars", "LV20394839214");
+                CustomerAsCompany c1 = new CustomerAsCompany(a1, "24423747", "Kalmars", "20394839214");
                 company.save(c1);
 
                 CustomerAsPerson c2 = new CustomerAsPerson(p1,a1,"24423747");
@@ -39,8 +39,8 @@ public class JavaMd2DKalnavsApplication {
                 customerRepo.save(c3);
 
 
-                Driver d1 = new Driver("Rudolfs", "Kalmars", "130301-20821", "AT789221", 8.3f);
-                Driver d2 = new Driver("Daniels", "Kalnas", "210210-21221", "AT832221", 1.2f);
+                Driver d1 = new Driver("Rudolfs", "Zivs", "123456-123456", "AT789221", 5);
+                Driver d2 = new Driver("Daniels", "Kalns", "123456-123456", "AT832221", 4);
 
                 driverRepo.save(d1);
                 driverRepo.save(d2);
