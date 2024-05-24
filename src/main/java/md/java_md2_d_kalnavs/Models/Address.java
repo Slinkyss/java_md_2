@@ -37,8 +37,10 @@ public class Address {
     private String streetOrHouseTitle;
 
 
-    @OneToOne(mappedBy = "address")
+    @ManyToOne
+    @JoinColumn(name = "Idc")
     private AbstractCustomer abstractCustomer;
+
 
     public Address(City city, int houseNo, String streetOrHouseTitle) {
         setCity(city);

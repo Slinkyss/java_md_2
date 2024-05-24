@@ -24,15 +24,13 @@ public abstract class AbstractCustomer {
     @Setter(value = AccessLevel.NONE)
     @Column(name = "Idc")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long cID;
+    private int cID;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "Ida")
     private Address address;
 
     @NotNull
-    @Size(min = 8,max = 8)
-    @Pattern(regexp = "([0-9]+)")
     @Column(name = "PhoneNo")
     private String phoneNo;
 

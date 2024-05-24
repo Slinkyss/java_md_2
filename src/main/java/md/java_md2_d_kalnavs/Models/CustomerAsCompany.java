@@ -23,8 +23,6 @@ public class CustomerAsCompany extends AbstractCustomer{
     public String title;
 
     @NotNull
-    @Size(min = 1, max = 11)
-    @Pattern(regexp = "([0-9]+)")
     public String getCompanyRegNo;
 
 
