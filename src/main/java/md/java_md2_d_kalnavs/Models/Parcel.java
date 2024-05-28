@@ -120,6 +120,7 @@ public class Parcel {
     }
 
     public Parcel( ParcelSize size, boolean isFragile, Driver driver){
+        setPrice(size, isFragile);
         setPlannedDelivery();
         setDriver(driver);
         setFragile(isFragile);

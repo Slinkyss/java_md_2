@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Details</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div class="container">
+    <h1 th:text="${title}">Driver Details</h1>
+    <div class="driver-details">
+
+        <p><strong>ID:</strong> <span th:text="${driver.id}">ID</span></p>
+        <p><strong>Name:</strong> <span th:text="${driver.name}">Name</span></p>
+        <p><strong>License Number:</strong> <span th:text="${driver.licenseNo}">License Number</span></p>
+        <p><strong>Experience (Years):</strong> <span th:text="${driver.experienceInYears}">Experience</span></p>
+    </div>
+</div>
+</body>
+</html>
+

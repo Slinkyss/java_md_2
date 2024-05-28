@@ -30,6 +30,7 @@ public class JavaMd2DKalnavsApplication {
                 addressRepo.save(a1);
                 addressRepo.save(a2);
 
+
                 CustomerAsCompany c1 = new CustomerAsCompany(a1, "24423747", "Kalmars", "20394839214");
                 company.save(c1);
 
@@ -44,6 +45,13 @@ public class JavaMd2DKalnavsApplication {
 
                 driverRepo.save(d1);
                 driverRepo.save(d2);
+                Parcel parcel = new Parcel(ParcelSize.S,true,d1);
+                Parcel parcel1 = new Parcel(ParcelSize.S,true,d2);
+
+
+                parcelRepo.save(parcel);
+                parcelRepo.save(parcel1);
+
             }
         };
     }

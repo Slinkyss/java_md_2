@@ -12,6 +12,7 @@ import lombok.ToString;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @Getter
@@ -34,7 +35,7 @@ public class Driver extends Person{
     private float ExperienceInYears;
 
     @OneToMany(mappedBy = "driver")
-    private ArrayList<Parcel> parcels;
+    private List<Parcel> parcels = new ArrayList<>();
 
 
     public Driver(String name, String surname, String personCode, String licenseNo, float experienceInYears) {
