@@ -9,26 +9,31 @@
 <body>
 <div class="container mt-5">
     <h1>Add Driver</h1>
-    <form th:action="@{/driver/add}" th:object="${driver}" th:method="post">
+    <form th:action="@{/driver/add}" th:object="${driver}" method="post">
         <div class="form-group">
             <label for="name">Name:</label>
-            <input type="text" class="form-control" id="name" name="name" required>
+            <input type="text" class="form-control" id="name" name="name" th:field="*{name}" required>
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></div>
         </div>
         <div class="form-group">
             <label for="surname">Surname:</label>
-            <input type="text" class="form-control" id="surname" name="surname" required>
+            <input type="text" class="form-control" id="surname" name="surname" th:field="*{surname}" required>
+            <div th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="text-danger"></div>
         </div>
         <div class="form-group">
             <label for="personCode">Person Code:</label>
-            <input type="text" class="form-control" id="personCode" name="personCode" required>
+            <input type="text" class="form-control" id="personCode" name="personCode" th:field="*{personCode}" required>
+            <div th:if="${#fields.hasErrors('personCode')}" th:errors="*{personCode}" class="text-danger"></div>
         </div>
         <div class="form-group">
             <label for="licenseNo">License Number:</label>
-            <input type="text" class="form-control" id="licenseNo" name="licenseNo" required pattern="^[A-Z]{2}\d{6}$">
+            <input type="text" class="form-control" id="licenseNo" name="licenseNo" th:field="*{licenseNo}" required>
+            <div th:if="${#fields.hasErrors('licenseNo')}" th:errors="*{licenseNo}" class="text-danger"></div>
         </div>
         <div class="form-group">
             <label for="experienceInYears">Experience (Years):</label>
-            <input type="number" class="form-control" id="experienceInYears" name="experienceInYears" required min="0">
+            <input type="number" class="form-control" id="experienceInYears" name="experienceInYears" th:field="*{experienceInYears}" required min="0">
+            <div th:if="${#fields.hasErrors('experienceInYears')}" th:errors="*{experienceInYears}" class="text-danger"></div>
         </div>
         <button type="submit" class="btn btn-primary">Add Driver</button>
     </form>

@@ -64,7 +64,7 @@ public class DriverController {
     }
 
     @GetMapping("/add")
-    public String getAdDriver(Model model) {
+    public String AddDriver(Model model) {
         try {
             model.addAttribute("driver", new Driver());
             model.addAttribute("title", "Add Driver");
@@ -76,26 +76,27 @@ public class DriverController {
     }
 
     @PostMapping("/add")
-    public String addDriver(@Valid Driver driver, BindingResult result) {
+    public String addDriver(@Valid Driver driver, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("title", "Add Driver");
             return "driver-add-page";
         } else {
             try {
                 driverCRUDService.createDriver(driver);
                 return "redirect:/driver/show/all";
             } catch (Exception e) {
+                model.addAttribute("error", e.getMessage());
                 return "error";
             }
         }
     }
     @GetMapping("/update")
-    public String updateDriver(Model model, @RequestParam(required = false) int id) {
-
+    public String UpdateDriver(Model model, @RequestParam Integer id) {
         try {
-            model.addAttribute("title", "Update Driver");
             Driver driver = driverCRUDService.getDriverById(id);
+
+            model.addAttribute("title", "Update Driver");
             model.addAttribute("driver", driver);
-            model.addAttribute("id", id); // Pass the ID to the model
             return "driver-update-page";
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
@@ -103,12 +104,10 @@ public class DriverController {
         }
     }
 
-
     @PostMapping("/update")
-    public String updateDriver(@RequestParam int id, @Valid Driver driver, BindingResult result, Model model) {
-
+    public String updateDriver(@RequestParam Integer id, @Valid Driver driver, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            model.addAttribute("id", id);
+            model.addAttribute("title", "Update Driver");
             return "driver-update-page";
         } else {
             try {
@@ -120,7 +119,6 @@ public class DriverController {
             }
         }
     }
-
 }
 
 

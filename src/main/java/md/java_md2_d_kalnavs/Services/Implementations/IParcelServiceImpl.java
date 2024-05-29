@@ -82,7 +82,7 @@ public class IParcelServiceImpl implements IParcelService {
         if(city == null){
             throw new Exception("City input is wrong");
         }
-        return null;
+        return parcelRepo.findByAbstractCustomer_Address_City(city);
     }
 
     @Override
@@ -132,4 +132,22 @@ public class IParcelServiceImpl implements IParcelService {
         }
         return sum;
     }
-}
+
+    @Override
+    public void insertParcel(ParcelSize size, Boolean isFragile, int DriverId, int CustomersId) throws Exception {
+        if(size == null  || DriverId < 0 || CustomersId < 0){
+            throw new Exception("Input is wrong");
+        }
+
+        Driver driver = driverRepo.findById(DriverId).get();
+        AbstractCustomer customer = companyRepo.findById(CustomersId).get();
+
+        Parcel parcel = new Parcel(size,isFragile,driver,customer);
+
+        parcelRepo.save(parcel);
+    }
+    }
+
+
+
+

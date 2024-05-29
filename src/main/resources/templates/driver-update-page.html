@@ -3,47 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Driver</title>
+    <title th:text="${title}">Update Driver</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <style>
-        /* Additional CSS for yellow button */
-        .btn-yellow {
-            background-color: #ffc107;
-            border-color: #ffc107;
-        }
-        .btn-yellow:hover {
-            background-color: #ffca2c;
-            border-color: #ffca2c;
-        }
-    </style>
 </head>
 <body>
-<div class="container">
-    <h1>Update Driver</h1>
-    <form th:action="@{/driver/update(id=${id})}" th:object="${driver}" th:method="post">
+<div class="container mt-5">
+    <h1 th:text="${title}">Update Driver</h1>
+    <form th:action="@{/driver/update}" th:object="${driver}" method="post">
+        <input type="hidden" th:field="*{id}" />
         <div class="form-group">
             <label for="name">Name:</label>
-            <input type="text" id="name" name="name" th:field="*{name}" class="form-control" required>
+            <input type="text" class="form-control" id="name" name="name" th:field="*{name}" required>
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></div>
         </div>
         <div class="form-group">
             <label for="surname">Surname:</label>
-            <input type="text" id="surname" name="surname" th:field="*{surname}" class="form-control" required>
+            <input type="text" class="form-control" id="surname" name="surname" th:field="*{surname}" required>
+            <div th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="text-danger"></div>
         </div>
         <div class="form-group">
             <label for="personCode">Person Code:</label>
-            <input type="text" id="personCode" name="personCode" th:field="*{personCode}" class="form-control" required>
+            <input type="text" class="form-control" id="personCode" name="personCode" th:field="*{personCode}" required>
+            <div th:if="${#fields.hasErrors('personCode')}" th:errors="*{personCode}" class="text-danger"></div>
         </div>
         <div class="form-group">
             <label for="licenseNo">License Number:</label>
-            <input type="text" id="licenseNo" name="licenseNo" th:field="*{licenseNo}" class="form-control" required>
-            <span class="error" th:if="${#fields.hasErrors('licenseNo')}" th:errors="*{licenseNo}">Invalid license number</span>
+            <input type="text" class="form-control" id="licenseNo" name="licenseNo" th:field="*{licenseNo}" required>
+            <div th:if="${#fields.hasErrors('licenseNo')}" th:errors="*{licenseNo}" class="text-danger"></div>
         </div>
         <div class="form-group">
             <label for="experienceInYears">Experience (Years):</label>
-            <input type="number" id="experienceInYears" name="experienceInYears" th:field="*{experienceInYears}" class="form-control" required min="0">
+            <input type="number" class="form-control" id="experienceInYears" name="experienceInYears" th:field="*{experienceInYears}" required min="0">
+            <div th:if="${#fields.hasErrors('experienceInYears')}" th:errors="*{experienceInYears}" class="text-danger"></div>
         </div>
-        <input type="hidden" name="id" th:value="${id}"/>
-        <button type="submit" class="btn btn-yellow">Update Driver</button>
+        <button type="submit" class="btn btn-primary">Update Driver</button>
     </form>
 </div>
 </body>

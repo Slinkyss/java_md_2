@@ -6,8 +6,8 @@
 </head>
 <body>
 <div class="container">
-    <h1 class="mt-5">Create Customer</h1>
-    <form th:action="@{/customers/create}" th:object="${customer}" th:method="post">
+    <h1 class="mt-5">Create Customer </h1>
+    <form th:action="@{/customer/add}" th:object="${customer}" th:method="post">
         <div class="form-group">
             <label for="name">First Name</label>
             <input type="text" id="name" name="person.name" th:field="*{person.name}" class="form-control" required>

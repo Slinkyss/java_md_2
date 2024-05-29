@@ -24,18 +24,34 @@ public class CustomerController {
 
 
 
+
+
+
     @GetMapping("/add")
-    public String showCreateCustomerForm(Model model) {
-        model.addAttribute("customer", new CustomerAsPerson(new Person(), new Address(), ""));
-        return "customer-add-page";
+    public String addCustomer(Model model) {
+        try {
+            model.addAttribute("customer", new CustomerAsPerson(new Person(), new Address(), ""));
+            model.addAttribute("title", "Add customer");
+            return "customer-add-page";
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
     }
 
     @PostMapping("/add")
-    public String createCustomer(@Valid @ModelAttribute("customer") CustomerAsPerson customer, BindingResult result, Model model) throws Exception {
+    public String addCustomer(@Valid @ModelAttribute("customer") CustomerAsPerson customer, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("title", "Add customer");
             return "customer-add-page";
+        } else {
+            try {
+                customerService.InsertNewCustomerAsPerson(customer);
+                return "redirect:/driver/show/all";
+            } catch (Exception e) {
+                model.addAttribute("error", e.getMessage());
+                return "error";
+            }
         }
-        customerService.InsertNewCustomerAsPerson(customer);
-        return "redirect:/customers";
     }
 }
