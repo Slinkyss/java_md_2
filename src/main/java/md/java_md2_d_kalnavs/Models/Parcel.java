@@ -48,6 +48,7 @@ public class Parcel {
     private LocalDate plannedDelivery;
 
 
+
     public void setPrice(ParcelSize size, Boolean isFragile) {
         switch(size){
             case L:
@@ -119,12 +120,13 @@ public class Parcel {
         return day.getValue();
     }
 
-    public Parcel( ParcelSize size, boolean isFragile, Driver driver){
+    public Parcel( ParcelSize size, boolean isFragile, Driver driver, AbstractCustomer abstractCustomer){
         setPrice(size, isFragile);
         setPlannedDelivery();
         setDriver(driver);
         setFragile(isFragile);
         setSize(size);
         setPrice(size,isFragile);
+        setAbstractCustomer(abstractCustomer);
     }
 }

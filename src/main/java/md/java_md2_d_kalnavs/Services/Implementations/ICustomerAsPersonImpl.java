@@ -31,7 +31,9 @@ public class ICustomerAsPersonImpl implements ICustomerService {
             throw new Exception("Input is wrong");
         }
 
-        customerAsPersonRepo.save(customer);
+        CustomerAsPerson customerAsPerson = new CustomerAsPerson(customer.getPerson(),customer.getAddress(), customer.getCustomerCode());
+
+        customerAsPersonRepo.save(customerAsPerson);
 
     }
 

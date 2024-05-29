@@ -2,14 +2,13 @@ package md.java_md2_d_kalnavs.Models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -17,8 +16,6 @@ import java.util.ArrayList;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
 public abstract class AbstractCustomer {
-
-
 
     @Id
     @Column(name = "Idc")
@@ -34,19 +31,17 @@ public abstract class AbstractCustomer {
     @Column(name = "PhoneNo")
     private String phoneNo;
 
-
     @NotNull
     @Column(name = "Customer_Code")
-    protected  String customerCode;
-
+    protected String customerCode;
 
     @OneToMany(mappedBy = "abstractCustomer")
-    private ArrayList<Parcel> parcels;
+    private List<Parcel> parcels = new ArrayList<>();
 
 
     public AbstractCustomer(Address address, String phoneNo) {
         setAddress(address);
         setPhoneNo(phoneNo);
     }
-
 }
+

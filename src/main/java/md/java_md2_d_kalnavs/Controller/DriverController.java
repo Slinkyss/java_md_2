@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("md/driver")
+@RequestMapping("/driver")
 public class DriverController {
 
     @Autowired
@@ -50,12 +50,12 @@ public class DriverController {
     }
 
 
-    @GetMapping("/driver/remove")
+    @GetMapping("/remove")
     public String removeDriver(Model model, @RequestParam int id) {
         try {
             driverCRUDService.deleteDriver(id);
 
-           return  "redirect:/md/driver/show/all";
+            return  "redirect:/driver/show/all";
 
         }catch (Exception e) {
             model.addAttribute("error", e.getMessage());
@@ -63,7 +63,7 @@ public class DriverController {
         }
     }
 
-    @GetMapping("/driver/add")
+    @GetMapping("/add")
     public String getAdDriver(Model model) {
         try {
             model.addAttribute("driver", new Driver());
@@ -75,22 +75,53 @@ public class DriverController {
         }
     }
 
-    @PostMapping("/driver/add")
+    @PostMapping("/add")
     public String addDriver(@Valid Driver driver, BindingResult result) {
         if (result.hasErrors()) {
             return "driver-add-page";
         } else {
             try {
                 driverCRUDService.createDriver(driver);
-                return "redirect:/md/driver/show/all";
+                return "redirect:/driver/show/all";
             } catch (Exception e) {
                 return "error";
             }
         }
     }
+    @GetMapping("/update")
+    public String updateDriver(Model model, @RequestParam(required = false) int id) {
+
+        try {
+            model.addAttribute("title", "Update Driver");
+            Driver driver = driverCRUDService.getDriverById(id);
+            model.addAttribute("driver", driver);
+            model.addAttribute("id", id); // Pass the ID to the model
+            return "driver-update-page";
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
     }
 
 
+    @PostMapping("/update")
+    public String updateDriver(@RequestParam int id, @Valid Driver driver, BindingResult result, Model model) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("id", id);
+            return "driver-update-page";
+        } else {
+            try {
+                driverCRUDService.updateDriverById(id, driver);
+                return "redirect:/driver/show/all";
+            } catch (Exception e) {
+                model.addAttribute("error", e.getMessage());
+                return "error";
+            }
+        }
+    }
+
+}
 
 
 

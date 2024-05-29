@@ -1,9 +1,6 @@
 package md.java_md2_d_kalnavs.Services.Implementations;
 
-import md.java_md2_d_kalnavs.Models.City;
-import md.java_md2_d_kalnavs.Models.CustomerAsPerson;
-import md.java_md2_d_kalnavs.Models.Driver;
-import md.java_md2_d_kalnavs.Models.Parcel;
+import md.java_md2_d_kalnavs.Models.*;
 import md.java_md2_d_kalnavs.Services.IParcelService;
 import md.java_md2_d_kalnavs.repo.ICustomerAsCompany;
 import md.java_md2_d_kalnavs.repo.ICustomerAsPersonRepo;
@@ -15,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 public class IParcelServiceImpl implements IParcelService {
@@ -33,28 +31,14 @@ public class IParcelServiceImpl implements IParcelService {
 
     @Override
     public ArrayList<Parcel> selectAllParcelsByCustomersId(int id) throws Exception {
-        if(id <= 0){
+        if (id <= 0) {
             throw new Exception("Id input is wrong");
         }
-        ArrayList<Parcel> parcels = new ArrayList<>();
 
-        if(customerRepo.existsById(id)){
-            CustomerAsPerson customer = customerRepo.findById(id).get();
-            parcels.addAll(customer.getParcels());
-            if(parcels.isEmpty()){
-                throw new Exception("there is no parcel with this id");
-            }
-        } else if (companyRepo.existsById(id)) {
-            CustomerAsPerson customer = customerRepo.findById(id).get();
-            parcels.addAll(customer.getParcels());
-            if(parcels.isEmpty()){
-                throw new Exception("there is no parcel with this id");
-            }
-        } else{
-            throw new Exception("there is no customer with this id");
-        }
-        return parcels;
+
+        return parcelRepo.findByAbstractCustomer_cID(id);
     }
+
 
     @Override
     public ArrayList<Parcel> selectAllParcelsByDriversId(int id) throws Exception {

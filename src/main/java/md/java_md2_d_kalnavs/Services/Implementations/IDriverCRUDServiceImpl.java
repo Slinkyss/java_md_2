@@ -59,16 +59,16 @@ public class IDriverCRUDServiceImpl implements IDriverCRUDService {
 
 
     @Override
-    public void updateDriverById(int id) throws Exception {
+    public void updateDriverById(int id,Driver driver) throws Exception {
         if(id <= 0){
             throw new Exception("Drivers id input is wrong");
         }
         Driver updatedDriver = driverRepo.findById(id).get();
-        updatedDriver.setName(updatedDriver.getName());
-        updatedDriver.setSurname(updatedDriver.getSurname());
-        updatedDriver.setPersonCode(updatedDriver.getPersonCode());
-        updatedDriver.setLicenseNo(updatedDriver.getLicenseNo());
-        updatedDriver.setExperienceInYears(updatedDriver.getExperienceInYears());
+        updatedDriver.setName(driver.getName());
+        updatedDriver.setSurname(driver.getSurname());
+        updatedDriver.setPersonCode(driver.getPersonCode());
+        updatedDriver.setLicenseNo(driver.getLicenseNo());
+        updatedDriver.setExperienceInYears(driver.getExperienceInYears());
 
         driverRepo.save(updatedDriver);
     }

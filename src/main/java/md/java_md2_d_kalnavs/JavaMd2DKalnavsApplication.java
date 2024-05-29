@@ -1,11 +1,15 @@
 package md.java_md2_d_kalnavs;
 
 import md.java_md2_d_kalnavs.Models.*;
+import md.java_md2_d_kalnavs.Services.IParcelService;
 import md.java_md2_d_kalnavs.repo.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.util.List;
 
 @SpringBootApplication
 public class JavaMd2DKalnavsApplication {
@@ -16,7 +20,7 @@ public class JavaMd2DKalnavsApplication {
 
     @Bean
     public CommandLineRunner testDatabase(IAddressRepo addressRepo, IDriverRepo driverRepo,
-                                          IParcelRepo parcelRepo, IPersonRepo personRepo, ICustomerAsPersonRepo customerRepo, ICustomerAsCompany company) {
+                                          IParcelRepo parcelRepo, IPersonRepo personRepo, ICustomerAsPersonRepo customerRepo, ICustomerAsCompany company,  IParcelService parcelService) {
         return new CommandLineRunner() {
             @Override
             public void run(String... args) throws Exception {
@@ -24,6 +28,9 @@ public class JavaMd2DKalnavsApplication {
                 Person p2 = new Person("Juris", "Berzins", "123456-78911");
                 personRepo.save(p1);
                 personRepo.save(p2);
+
+
+
 
                 Address a1 = new Address(City.Liepaja, 10, "Liela iela");
                 Address a2 = new Address(City.Riga, 21, "Maza iela");
@@ -45,12 +52,18 @@ public class JavaMd2DKalnavsApplication {
 
                 driverRepo.save(d1);
                 driverRepo.save(d2);
-                Parcel parcel = new Parcel(ParcelSize.S,true,d1);
-                Parcel parcel1 = new Parcel(ParcelSize.S,true,d2);
+                Parcel parcel = new Parcel(ParcelSize.S,true,d1,c3);
+                Parcel parcel1 = new Parcel(ParcelSize.S,true,d2,c2);
+                Parcel parcel2 = new Parcel(ParcelSize.S,true,d1,c1);
 
 
                 parcelRepo.save(parcel);
                 parcelRepo.save(parcel1);
+                parcelRepo.save(parcel2);
+
+
+
+
 
             }
         };

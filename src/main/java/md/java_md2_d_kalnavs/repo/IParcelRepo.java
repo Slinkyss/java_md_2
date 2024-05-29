@@ -12,4 +12,6 @@ public interface IParcelRepo extends CrudRepository<Parcel, Integer> {
     ArrayList<Parcel> findByPriceLessThan(float price);
 
     List<Parcel> findByDriverId(int id);
+
+    ArrayList<Parcel> findByAbstractCustomer_cID(int customerId);
 }

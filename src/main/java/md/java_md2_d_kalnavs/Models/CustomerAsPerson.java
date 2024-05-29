@@ -21,6 +21,8 @@ public class CustomerAsPerson extends AbstractCustomerAsPerson {
     protected Person person;
 
 
+
+
     public void setCustomerCode() {
 
 
@@ -34,4 +36,5 @@ public class CustomerAsPerson extends AbstractCustomerAsPerson {
         setCustomerCode();
 
     }
+
 }

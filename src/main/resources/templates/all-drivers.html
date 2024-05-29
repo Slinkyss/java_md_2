@@ -4,19 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Drivers</title>
-    <link rel="stylesheet" href="/templates/style.css"> <!-- Ensure the path is correct -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        /* Additional CSS for styling */
+        .action-buttons {
+            display: inline-block;
+            margin-right: 5px;
+        }
+    </style>
 </head>
 <body>
-<div class="table-wrapper">
+<div class="container">
     <h1>All Drivers</h1>
-    <div class="table-container">
-        <table>
+    <div class="table-responsive">
+        <table class="table table-striped">
             <thead>
             <tr>
                 <th>ID</th>
                 <th>Name</th>
                 <th>License Number</th>
                 <th>Experience (Years)</th>
+                <th>Actions</th> <!-- New column for action buttons -->
             </tr>
             </thead>
             <tbody>
@@ -25,10 +33,24 @@
                 <td th:text="${driver.name}">Name</td>
                 <td th:text="${driver.licenseNo}">License Number</td>
                 <td th:text="${driver.experienceInYears}">Experience (Years)</td>
+                <td>
+                    <!-- Update Button -->
+                    <form class="action-buttons" th:action="@{/driver/update(id=${driver.id})}" method="get">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
+                    <!-- Delete Button -->
+                    <form class="action-buttons" th:action="@{/driver/remove}" method="get">
+                        <input type="hidden" name="id" th:value="${driver.id}" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>
     </div>
+    <!-- Create Button -->
+    <a href="/driver/add" class="btn btn-success">Add Driver</a>
 </div>
 </body>
 </html>
+

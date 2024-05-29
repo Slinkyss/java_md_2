@@ -4,6 +4,7 @@ import md.java_md2_d_kalnavs.Models.City;
 import md.java_md2_d_kalnavs.Models.Parcel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface IParcelService {
 

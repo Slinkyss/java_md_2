@@ -11,7 +11,7 @@ public interface IDriverCRUDService {
     ArrayList<Driver> getAllDrivers() throws Exception;
     Driver getDriverById(int id) throws Exception;
     void createDriver(Driver driver) throws Exception;
-    void updateDriverById(int id) throws Exception;
+    void updateDriverById(int id,Driver driver) throws Exception;
     void deleteDriver(int id) throws Exception;
 
 
