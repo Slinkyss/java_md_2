@@ -42,22 +42,21 @@ public class IParcelServiceImpl implements IParcelService {
 
     @Override
     public ArrayList<Parcel> selectAllParcelsByDriversId(int id) throws Exception {
-        if(id <= 0){
+        if (id <= 0) {
             throw new Exception("Id input is wrong");
         }
 
         ArrayList<Parcel> parcels = new ArrayList<>();
 
-        if(driverRepo.existsById(id)){
+        if (driverRepo.existsById(id)) {
             Driver driver = driverRepo.findById(id).get();
             parcels.addAll(driver.getParcels());
-            if(parcels.isEmpty()){
+            if (parcels.isEmpty()) {
                 throw new Exception("there is no parcel with this id");
             }
-        }else{
+        } else {
             throw new Exception("there is no driver with this id ");
         }
-
 
 
         return parcels;
@@ -66,20 +65,19 @@ public class IParcelServiceImpl implements IParcelService {
     @Override
     public ArrayList<Parcel> selectAllParcelsPriceLessThan(int price) throws Exception {
 
-        if(price <= 0){
+        if (price <= 0) {
             throw new Exception("Price input is wrong");
         }
 
 
-
-         return parcelRepo.findByPriceLessThan(price);
+        return parcelRepo.findByPriceLessThan(price);
 
 
     }
 
     @Override
     public ArrayList<Parcel> selectAllParcelsByCity(City city) throws Exception {
-        if(city == null){
+        if (city == null) {
             throw new Exception("City input is wrong");
         }
         return parcelRepo.findByAbstractCustomer_Address_City(city);
@@ -87,13 +85,13 @@ public class IParcelServiceImpl implements IParcelService {
 
     @Override
     public void changeParcelDriverByParcelIdAndDriverId(int parcelId, int DriverId) throws Exception {
-        if(parcelId < 0 || DriverId < 0){
+        if (parcelId < 0 || DriverId < 0) {
             throw new Exception("Id input is wrong");
         }
-        if(!parcelRepo.existsById(parcelId)){
+        if (!parcelRepo.existsById(parcelId)) {
             throw new Exception("Parcel with this id does not exist");
         }
-        if(!driverRepo.existsById(DriverId)){
+        if (!driverRepo.existsById(DriverId)) {
             throw new Exception("Driver with this id does not exist");
         }
 
@@ -105,7 +103,7 @@ public class IParcelServiceImpl implements IParcelService {
 
     @Override
     public float calculateIncomeOfParcelByCustomerId(int CustomersId) throws Exception {
-        if(CustomersId < 0){
+        if (CustomersId < 0) {
             throw new Exception("Id input is wrong");
         }
 
@@ -126,27 +124,43 @@ public class IParcelServiceImpl implements IParcelService {
         int sum = 0;
 
         for (Parcel parcel : parcels) {
-            if(parcel.getPlannedDelivery().getDayOfYear() == LocalDateTime.now().getDayOfYear()){
-                sum ++;
+            if (parcel.getPlannedDelivery().getDayOfYear() == LocalDateTime.now().getDayOfYear()) {
+                sum++;
             }
         }
         return sum;
     }
 
     @Override
-    public void insertParcel(ParcelSize size, Boolean isFragile, int DriverId, int CustomersId) throws Exception {
-        if(size == null  || DriverId < 0 || CustomersId < 0){
+    public void insertParcel(ParcelSize size, Boolean isFragile, int DriverId, String customerCode) throws Exception {
+        if (size == null || DriverId < 0 || customerCode == null) {
             throw new Exception("Input is wrong");
         }
 
         Driver driver = driverRepo.findById(DriverId).get();
-        AbstractCustomer customer = companyRepo.findById(CustomersId).get();
 
-        Parcel parcel = new Parcel(size,isFragile,driver,customer);
 
-        parcelRepo.save(parcel);
+        CustomerAsPerson personCustomer = (CustomerAsPerson) customerRepo.findCustomerByCustomerCode(customerCode);
+        CustomerAsCompany companyCustomer = (CustomerAsCompany) companyRepo.findCustomerAsCompaniesByCustomerCode(customerCode);
+
+        if (personCustomer != null) {
+            Parcel parcel = new Parcel(size, isFragile, driver, personCustomer);
+            parcel.setPlannedDelivery();
+            parcelRepo.save(parcel);
+
+        } else if (companyCustomer != null) {
+            Parcel parcel = new Parcel(size, isFragile, driver, companyCustomer);
+            parcel.setPlannedDelivery();
+            parcelRepo.save(parcel);
+
+        } else {
+            throw new Exception("Customer not found");
+        }
+
     }
-    }
+
+
+}
 
 
 

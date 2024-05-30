@@ -34,6 +34,13 @@ public class CustomerAsCompany extends AbstractCustomer{
     }
 
 
+    public CustomerAsCompany( String phoneNo, String title, String companyRegNo){
+        super(null,phoneNo);
+        setTitle(title);
+        setGetCompanyRegNo(companyRegNo);
+        setCustomerCode();
+
+    }
     public CustomerAsCompany(Address address, String phoneNo, String title, String companyRegNo) {
         super(address, phoneNo);
         setTitle(title);

@@ -79,13 +79,11 @@ public class IDriverCRUDServiceImpl implements IDriverCRUDService {
             throw new Exception("Driver ID input is wrong");
         }
         if (driverRepo.findById(id).isPresent()) {
-            // Check if there are any associated parcels
             List<Parcel> parcels = parcelRepo.findByDriverId(id);
             if (!parcels.isEmpty()) {
-                // Delete associated parcels
                 parcelRepo.deleteAll(parcels);
             }
-            // Now delete the driver
+
             driverRepo.deleteById(id);
         } else {
             throw new Exception("There is no driver with this ID");

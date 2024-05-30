@@ -4,46 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Parcel</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container">
-    <h1 th:text="${title}">Add Parcel</h1>
+<div class="container mt-5">
+    <h1>Add Parcel</h1>
     <form th:action="@{/parcels/add}" th:object="${parcel}" method="post">
         <div class="form-group">
-            <label for="size">Parcel Size:</label>
-            <select id="size" name="size" class="form-control" required>
-                <option value="S">Small</option>
-                <option value="M">Medium</option>
-                <option value="L">Large</option>
-                <option value="XL">Extra Large</option>
-                <option value="X">Extra Small</option>
+            <label for="size">Size:</label>
+            <select class="form-control" id="size" name="size" th:field="*{size}" required>
+                <option value="">Select Size</option>
+                <option value="X">X</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
             </select>
+            <div th:if="${#fields.hasErrors('size')}" th:errors="*{size}" class="text-danger"></div>
         </div>
         <div class="form-group">
-            <label for="isFragile">Is Fragile:</label>
-            <select id="isFragile" name="fragile" class="form-control" required>
-                <option value="true">Yes</option>
-                <option value="false">No</option>
-            </select>
+            <label for="isFragile">Fragile (true/false):</label>
+            <input type="text" class="form-control" id="isFragile" name="isFragile" th:field="*{fragile}" required>
         </div>
         <div class="form-group">
             <label for="driverId">Driver ID:</label>
-            <input type="number" id="driverId" name="driver.id" class="form-control" required>
+            <input type="number" class="form-control" id="driverId" name="driverId" th:field="*{driver.id}" required >
+            <div th:if="${#fields.hasErrors('driver.id')}" th:errors="*{driver.id}" class="text-danger"></div>
         </div>
-        <div class="form-group">
-            <label for="customerId">Customer ID:</label>
-            <input type="number" id="customerId" name="abstractCustomer.CID" class="form-control" required>
-        </div>
+
         <button type="submit" class="btn btn-primary">Add Parcel</button>
     </form>
-    <div th:if="${error}">
-        <div class="alert alert-danger" th:text="${error}"></div>
-    </div>
 </div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

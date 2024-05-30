@@ -39,11 +39,11 @@ public class Parcel {
     @Column(name = "size")
     private ParcelSize size;
 
-    @NotNull
+
     @Column(name = "Order_Created")
     private LocalDate orderCreated = LocalDate.now();
 
-    @NotNull
+
     @Column(name = "Planned_Delivery")
     private LocalDate plannedDelivery;
 

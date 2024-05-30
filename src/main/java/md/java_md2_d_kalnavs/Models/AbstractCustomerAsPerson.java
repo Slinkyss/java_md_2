@@ -21,4 +21,6 @@ public abstract class AbstractCustomerAsPerson extends AbstractCustomer {
         super(address, phoneNo);
         setPerson(person);
     }
+
+
 }

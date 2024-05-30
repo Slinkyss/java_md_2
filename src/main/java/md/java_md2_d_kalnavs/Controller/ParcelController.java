@@ -1,6 +1,7 @@
 package md.java_md2_d_kalnavs.Controller;
 
 import jakarta.validation.Valid;
+import md.java_md2_d_kalnavs.Models.AbstractCustomer;
 import md.java_md2_d_kalnavs.Models.City;
 import md.java_md2_d_kalnavs.Models.Driver;
 import md.java_md2_d_kalnavs.Models.Parcel;
@@ -77,23 +78,30 @@ public class ParcelController {
         }
     }
 
-    @GetMapping("/add")
-    public String addParcel(Model model) {
-        model.addAttribute("parcel", new Parcel());
-        model.addAttribute("title", "Add Parcel");
-        return "parcel-add-page";
-    }
 
+    @GetMapping("/add")
+    public String AddParcel(@RequestParam String personCode, Model model) {
+        try {
+            model.addAttribute("parcel", new Parcel());
+            model.addAttribute("title", "Add Driver");
+            model.addAttribute("personCode", personCode);
+            return "parcel-add-page";
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
+    }
     @PostMapping("/add")
-    public String addParcel(@Valid Parcel parcel, BindingResult result, Model model) {
+    public String addParcel(@Valid Parcel parcel,String personCode, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("title", "Add Parcel");
             model.addAttribute("parcel", parcel);
             return "parcel-add-page";
         } else {
             try {
-                parcelService.insertParcel(parcel.getSize(), parcel.isFragile(), parcel.getDriver().getId(), parcel.getAbstractCustomer().getCID());
-                return "" ;
+
+                parcelService.insertParcel(parcel.getSize(),parcel.isFragile(),parcel.getDriver().getId(), personCode);
+                return "redirect:/";
             } catch (Exception e) {
                 model.addAttribute("error", e.getMessage());
                 return "error";

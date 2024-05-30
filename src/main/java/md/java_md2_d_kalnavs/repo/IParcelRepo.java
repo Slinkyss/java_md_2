@@ -5,6 +5,7 @@ import md.java_md2_d_kalnavs.Models.City;
 import md.java_md2_d_kalnavs.Models.Parcel;
 import org.springframework.data.repository.CrudRepository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,4 +17,5 @@ public interface IParcelRepo extends CrudRepository<Parcel, Integer> {
     ArrayList<Parcel> findByAbstractCustomer_cID(int customerId);
 
     ArrayList<Parcel> findByAbstractCustomer_Address_City(City city);
+
 }

@@ -29,6 +29,11 @@ public class CustomerAsPerson extends AbstractCustomerAsPerson {
         this.customerCode = String.valueOf(super.getCID()) + "_" + "person" + "_" + person.getPersonCode();
 
     }
+    public CustomerAsPerson(Person person, String phoneNo) {
+        super(null,phoneNo,person);
+        setPerson(person);
+        setCustomerCode();
+    }
 
     public CustomerAsPerson(Person person, Address address, String phone) {
 
